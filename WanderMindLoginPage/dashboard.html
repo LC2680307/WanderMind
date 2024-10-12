@@ -11,18 +11,18 @@
         <!-- 侧边导航栏 -->
         <div class="sidebar">
             <div class="logo">
-                <img src="logo.png" alt="WanderMind Logo">
+                <img src="logo.svg" alt="WanderMind Logo">
             </div>
             <nav>
                 <ul>
                     <li class="active">
-                        <a href="#"><img src="dashboard-icon.png" alt="Dashboard Icon"> Dashboard</a>
+                        <a href="dashboard.html"><img src="dashboard-icon.png" alt="Dashboard Icon"> Dashboard</a>
                     </li>
                     <li>
-                        <a href="#"><img src="journey-icon.png" alt="Journey List Icon"> Journey List</a>
+                        <a href="journey-list.html"><img src="journey-icon.png" alt="Journey List Icon"> Journey List</a>
                     </li>
                     <li>
-                        <a href="#"><img src="travel-icon.png" alt="AI Travel Guide Icon"> AI-Travel Guide</a>
+                        <a href="ai-travel-guide.html"><img src="travel-icon.png" alt="AI Travel Guide Icon"> AI-Travel Guide</a>
                     </li>
                 </ul>
             </nav>
@@ -45,15 +45,112 @@
 
         <!-- 主体内容 -->
         <div class="main-content">
-            <h1>Welcome, Charlie! :)</h1>
-            <div class="content-box">
-                <button class="arrow left-arrow"> < </button>
-                <div class="content-area">
-                    <!-- 这里可以放置你的动态内容 -->
+            <!-- 顶部欢迎信息和搜索框 -->
+            <div class="header">
+                <h1>Welcome, Charlie! :)</h1>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search">
+                    <button class="calendar-btn"><img src="calendar-icon.png" alt="Calendar"></button>
                 </div>
-                <button class="arrow right-arrow"> > </button>
+            </div>
+
+            <!-- 图片轮播区域 -->
+            <div class="carousel">
+                <button class="arrow left-arrow" onclick="prevSlide()"> < </button>
+                <div class="carousel-content">
+                    <img src="carousel-image1.png" alt="Iceland" class="carousel-slide active">
+                    <img src="carousel-image2.png" alt="Japan" class="carousel-slide">
+                    <img src="carousel-image3.png" alt="Mexico" class="carousel-slide">
+                    <p class="carousel-caption">Discover the magic of these destinations.</p>
+                </div>
+                <button class="arrow right-arrow" onclick="nextSlide()"> > </button>
+                <div class="carousel-indicators">
+                    <span class="indicator active" onclick="currentSlide(0)"></span>
+                    <span class="indicator" onclick="currentSlide(1)"></span>
+                    <span class="indicator" onclick="currentSlide(2)"></span>
+                </div>
+            </div>
+
+            <!-- Top Picks 区域 -->
+            <div class="top-picks">
+                <h2>Top Picks 👍</h2>
+                <div class="picks">
+                    <div class="pick">
+                        <img src="beppu.png" alt="Beppu, Japan">
+                        <p>Beppu, Japan</p>
+                    </div>
+                    <div class="pick">
+                        <img src="rotorua.png" alt="Rotorua, New Zealand">
+                        <p>Rotorua, New Zealand</p>
+                    </div>
+                    <div class="pick">
+                        <img src="cancun.png" alt="Cancún, Mexico">
+                        <p>Cancún, Mexico</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 通知区域 -->
+            <div class="notifications">
+                <h2>Notification 🔔</h2>
+                <div class="trip-info">
+                    <p>Your trip is about to begin! Get ready for the adventure!</p>
+                    <p class="date">2024 13th/Oct</p>
+                    <div class="progress">
+                        <span>JFK Airport</span>
+                        <div class="progress-bar">
+                            <span class="progress-indicator"></span>
+                        </div>
+                        <span>Colorado</span>
+                    </div>
+                </div>
+                <div class="tips">
+                    <p>💡 Stay hydrated to avoid altitude sickness.</p>
+                    <p>💡 Layer your clothing — mountain weather can change fast!</p>
+                </div>
             </div>
         </div>
     </div>
+
+    <!-- JavaScript 用于轮播图 -->
+    <script>
+        let slideIndex = 0;
+        let slides = document.querySelectorAll('.carousel-slide');
+        let indicators = document.querySelectorAll('.indicator');
+
+        function showSlide(index) {
+            if (index >= slides.length) {
+                slideIndex = 0;
+            } else if (index < 0) {
+                slideIndex = slides.length - 1;
+            } else {
+                slideIndex = index;
+            }
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active');
+                indicators[i].classList.remove('active');
+                if (i === slideIndex) {
+                    slide.classList.add('active');
+                    indicators[i].classList.add('active');
+                }
+            });
+        }
+
+        function nextSlide() {
+            showSlide(slideIndex + 1);
+        }
+
+        function prevSlide() {
+            showSlide(slideIndex - 1);
+        }
+
+        function currentSlide(index) {
+            showSlide(index);
+        }
+
+        window.onload = function() {
+            setInterval(nextSlide, 3000);
+        };
+    </script>
 </body>
 </html>

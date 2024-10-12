@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WanderMind Loading Page</title>
+    <link rel="stylesheet" href="loading.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 侧边导航栏 -->
+        <div class="sidebar">
+            <div class="logo">
+                <img src="logo.svg" alt="WanderMind Logo">
+            </div>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="dashboard.html"><img src="dashboard-icon.png" alt="Dashboard Icon"> Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="journey-list.html"><img src="journey-icon.png" alt="Journey List Icon"> Journey List</a>
+                    </li>
+                    <li class="active">
+                        <a href="ai-travel-guide.html"><img src="travel-icon.png" alt="AI Travel Guide Icon"> AI-Travel Guide</a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="settings">
+                <ul>
+                    <li>
+                        <a href="#"><img src="settings-icon.png" alt="Settings Icon"> Settings</a>
+                    </li>
+                    <li>
+                        <a href="#"><img src="logout-icon.png" alt="Logout Icon"> Logout</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="user-profile">
+                <img src="profile-pic.png" alt="User Picture">
+                <p>Charlie</p>
+                <p>charlie@email.com</p>
+            </div>
+        </div>
+
+        <!-- 主体内容 -->
+        <div class="main-content">
+            <div class="loading-section">
+                <img src="image1.png" alt="Loading Animation" id="animated-circle">
+                <h1 id="welcome-text">Welcome</h1>
+                <p id="loading-text">Please give me some time</p>
+                <div id="keywords-container"></div> <!-- 关键词容器 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript 用于动画 -->
+    <script>
+        // 获取动画元素
+        const animatedCircle = document.getElementById('animated-circle');
+        const welcomeText = document.getElementById('welcome-text');
+        const loadingText = document.getElementById('loading-text');
+
+        // 差分图数组
+        const images = ['image1.png', 'image2.png', 'image3.png', 'image4.png'];
+        let index = 0;
+
+        // 定时切换图像
+        setInterval(() => {
+            animatedCircle.style.opacity = 0;
+
+            setTimeout(() => {
+                index = (index + 1) % images.length; // 循环图像数组
+                animatedCircle.src = images[index];
+                animatedCircle.style.opacity = 1; // 恢复显示
+            }, 100); // 在切换图像前稍作延迟
+        }, 200); // 每200毫秒切换一次图像
+
+        // 2秒后更改文字
+        setTimeout(() => {
+            loadingText.textContent = "Evaluating your preferences......";
+        }, 2000);
+
+        // 关键词数组
+        const keywords = ['warm', 'beach', 'swim', 'asian food'];
+        const keywordsContainer = document.getElementById('keywords-container');
+
+        // 动态添加关键词
+        keywords.forEach((word, i) => {
+            const keywordElement = document.createElement('span');
+            keywordElement.textContent = word;
+            keywordElement.classList.add('keyword');
+
+            // 使用预定义的位置来避免重叠
+            keywordElement.style.left = `${20 + i * 15}%`;
+            keywordElement.style.top = `${75 + (i % 2) * 5}%`;
+
+            keywordsContainer.appendChild(keywordElement);
+
+            // 延迟出现效果
+            setTimeout(() => {
+                keywordElement.style.opacity = 1;
+                keywordElement.style.transform = 'translateY(0)';
+            }, 2500 + i * 500); // 2.5秒后开始，逐个关键词延迟0.5秒出现
+        });
+    </script>
+</body>
+</html>
